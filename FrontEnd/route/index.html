@@ -34,16 +34,25 @@
           "$scope",
           "$http",
           function ($scope, $http) {
-            $http.get("data.js").success(function (data) {
+            $http.get("http://localhost/index.php").success(function (data) {
               $scope.people = data;
+              console.log(data);
             });
           },
         ])
         .controller("viewController", [
           "$scope",
           "$routeParams",
-          function ($scope, $routeParams) {
-            $scope.person = $scope.people[$routeParams.id];
+          "$http",
+          function ($scope, $routeParams, $http) {
+            $http
+              .get(
+                "http://localhost/customerRecordApi.php?id=" + $routeParams.id
+              )
+              .then(function (response) {
+                $scope.customer = response.data;
+                console.log(response.data);
+              });
           },
         ]);
     </script>
