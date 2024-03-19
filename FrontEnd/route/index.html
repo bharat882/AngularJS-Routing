@@ -1,10 +1,80 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="APP">
   <head>
-    .
     <style>
-      .center {
-        padding-top: 50px;
+      .navbar.nav-bar {
+        background-color: #f8f9fa; /* Light background color */
+        border: none; /* Remove border */
+        border-radius: 0; /* Remove border-radius */
+      }
+
+      /* Navbar links */
+      .navbar.nav-bar .navbar-nav > li > a {
+        color: #333; /* Link color */
+      }
+
+      .navbar.nav-bar .navbar-nav > li.active > a {
+        color: #555; /* Active link color */
+      }
+
+      .navbar.nav-bar .navbar-nav > li > a:hover,
+      .navbar.nav-bar .navbar-nav > li > a:focus {
+        color: #555; /* Link color on hover or focus */
+      }
+
+      /* Navbar brand/logo */
+      .navbar.nav-bar .navbar-brand {
+        color: #333; /* Brand color */
+      }
+
+      .navbar.nav-bar .navbar-brand:hover,
+      .navbar.nav-bar .navbar-brand:focus {
+        color: #555; /* Brand color on hover or focus */
+      }
+      .navbar.nav-bar .navbar-nav > li.active > a {
+        color: #f8f9fa;
+      }
+
+      /* Navbar right-aligned links */
+      .navbar.nav-bar .navbar-nav.navbar-right > li > a {
+        color: #333; /* Right-aligned link color */
+      }
+
+      .navbar.nav-bar .navbar-nav.navbar-right > li > a:hover,
+      .navbar.nav-bar .navbar-nav.navbar-right > li > a:focus {
+        color: #555; /* Right-aligned link color on hover or focus */
+      }
+
+      /* Logout icon */
+      .navbar.nav-bar .navbar-right .glyphicon-log-in {
+        margin-right: 5px; /* Add space between icon and text */
+      }
+      .login-form {
+        background-color: azure;
+        padding: 8%;
+      }
+      .directory-div {
+        margin: 0;
+        padding-top: 3%;
+      }
+      .view-div {
+        margin: 0;
+        padding-top: 3%;
+      }
+      .login-div {
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .input-group {
+        margin-bottom: 20px;
+      }
+      .loginbtn {
+        width: 100%;
       }
     </style>
     <meta
