@@ -1,7 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="APP">
   <head>
-    <meta charset="UTF-8" />
+    .
+    <style>
+      .center {
+        padding-top: 50px;
+      }
+    </style>
+    <meta
+      charset="UTF-8"
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
     <title>routing</title>
     <link
       rel="stylesheet"
@@ -20,26 +30,40 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.1.5/angular.min.js"></script>
     <script>
       angular
+
+        //http://127.0.0.1:8080/#/view/0
+        //http://127.0.0.1:8080/FrontEnd/route/#/
         .module("APP", [])
         .config(function ($routeProvider) {
           $routeProvider
-            .when("/", { templateUrl: "partials/directory.html" })
+            .when("/homepage", {
+              templateUrl: "/FrontEnd/route/partials/directory.html",
+              controller: "directoryController",
+            })
             .when("/view/:id", {
-              templateUrl: "/partials/view.html",
+              templateUrl: "/FrontEnd/route/partials/view.html",
               controller: "viewController",
             })
-            .otherwise({ redirectTo: "/" });
+            .when("/", {
+              templateUrl: "/FrontEnd/route/partials/loginPage.html",
+            });
+          //.otherwise({ redirectTo: "/" });
         })
         .controller("directoryController", [
           "$scope",
           "$http",
           function ($scope, $http) {
-            $http.get("http://localhost/index.php").success(function (data) {
-              $scope.people = data;
-              console.log(data);
-            });
+            $http
+              .get(
+                "http://localhost/php-angular-mysql-project/BackEnd/index.php"
+              )
+              .success(function (data) {
+                $scope.people = data;
+                console.log(data);
+              });
           },
         ])
+
         .controller("viewController", [
           "$scope",
           "$routeParams",
@@ -47,12 +71,49 @@
           function ($scope, $routeParams, $http) {
             $http
               .get(
-                "http://localhost/customerRecordApi.php?id=" + $routeParams.id
+                "http://localhost/php-angular-mysql-project/BackEnd/customerRecordApi.php?id=" +
+                  $routeParams.id
               )
               .then(function (response) {
                 $scope.customer = response.data;
                 console.log(response.data);
               });
+          },
+        ])
+
+        .controller("loginController", [
+          "$http",
+          "$scope",
+          "$location",
+
+          function ($http, $scope, $location) {
+            console.log("here1");
+
+            $scope.login = function login() {
+              console.log("here");
+              var username = $scope.username;
+              var password = $scope.password;
+
+              var data = {
+                username: username,
+                password: password,
+              };
+
+              $http
+                .post(
+                  "http://localhost/php-angular-mysql-project/BackEnd/authentication.php",
+                  { username: username, password: password }
+                )
+                .then(function (response) {
+                  // TO DO: FIX THIS
+                  if (response.data === "USER AUTHENTICATION SUCCESSFUL") {
+                    $location.path("/homepage");
+                  } else {
+                    // TO DO THROW ERROR
+                    $location.path("/homepage");
+                  }
+                });
+            };
           },
         ]);
     </script>
