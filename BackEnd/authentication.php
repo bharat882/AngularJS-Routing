@@ -9,21 +9,14 @@ class API{
         $password = $data['password'];
 
         $db = new Connect;
-
-        $data = $db -> prepare ('SELECT * FROM credentials where UserName = :username AND Password = :password');
-        $data->bindParam('username',$username,PDO::PARAM_INT);
-        $data->bindParam('password',$password,PDO::PARAM_INT);
+        $data = $db -> prepare ('SELECT userName, user_type , credentials.recordId FROM customer INNER JOIN credentials ON credentials.userId = customer.userId where UserName = :username AND Password = :password;');
+        $data->bindParam('username',$username,PDO::PARAM_STR);
+        $data->bindParam('password',$password,PDO::PARAM_STR);
         $data->execute();
-        $isValidUser = $data -> fetch(PDO::PARAM_INT);
-      //  return json_encode("$isValidUser");
-        if($isValidUser)
-        {
-            return json_encode("USER AUTHENTICATION SUCCESSFUL");
-        }
-        else
-        {
-            return json_encode("USER AUTHENTICATION FAILED");
-        }
+        $response = $data -> fetch(PDO::FETCH_ASSOC);
+
+        return json_encode($response);
+      
     }
 }
 

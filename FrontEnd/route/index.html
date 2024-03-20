@@ -176,6 +176,8 @@
                 )
                 .then(function (response) {
                   // TO DO: FIX THIS
+                  console.log(response.data);
+
                   if (response.data === "USER AUTHENTICATION SUCCESSFUL") {
                     $location.path("/homepage");
                   } else {
