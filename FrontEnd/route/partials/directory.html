@@ -1,13 +1,4 @@
-<script>
-  function toggle() {
-    console.log("edit button clicked");
-    directoryNameField = document.getElementById("directoryNameField");
-    directoryTelField = document.getElementById("directoryTelField");
 
-    directoryTelField.readOnly = true;
-    directoryNameField.readOnly = true;
-  }
-</script>
 <div class="directory-div">
   <nav class="navbar navbar-inverse nav-bar">
     <div class="container-fluid">
@@ -31,23 +22,26 @@
   <table class="table table-striped table-hover directory-table">
     <thead>
       <tr>
-        <th>Name</th>
-        <th>Phone</th>
+        <th>UserId</th>
+        <th>Password</th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="person in people">
         <td>
-          <a href="/FrontEnd/route/#/view/{{$index}}"
-            ><input type=”text” value="{{person.fname}} {{person.lname}}" [readonly]="false" id = "directoryNameField"/>
+          <a id = "anchor" href="/FrontEnd/route/#/view/{{$index}}"
+            ><input type=”text” value="{{person.username}}" readonly="readonly" id = "directoryNameField"/>
             
             </a
-          >
+
+          
+          
         </td>
         <td>
-          <input type=”text” value="{{person.tel}}" [readonly]="false" id=" directoryTelField" /></td>
+          <input type="text" value="{{person.password}}" readonly="readonly" id="directoryTelField" />
+
         <td>
-          <button type="button" class="btn btn-primary" id="editbtn" onclick="toggle()"">
+          <button type="button" class="btn btn-primary" id="togglebtn" ng-click="toggle()"">
             Edit
           </button>
           <button

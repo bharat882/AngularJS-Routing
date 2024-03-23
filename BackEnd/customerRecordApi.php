@@ -3,8 +3,8 @@ require_once __DIR__ . '/config.php';
 
 class API{
     function ViewCustomerRecord(){
-        $userId = $_GET['id']+1;
-
+        $userId = (int)$_GET['id']+1;
+        
         $db = new Connect;
         $customerRecord =" ";
         $loopExecuted = false;

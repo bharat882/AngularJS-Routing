@@ -5,18 +5,15 @@ class API {
     function Select() {
         $db = new Connect;
         $users = array();
-        $data = $db->prepare('SELECT * FROM customer');
+        $data = $db->prepare('SELECT * FROM credentials');
         $data->execute();
         $i = 0;
         while ($OutputData = $data->fetch(PDO::FETCH_ASSOC)) {
             $users[$i] = array(
-                'fname' => $OutputData['fname'],
-                'lname' => $OutputData['lname'],
-                'tel' => $OutputData['tel'],
-                'address' => $OutputData['address'],
-                'state' => $OutputData['state'],
-                'city' => $OutputData['city'],
-                'zip' => $OutputData['zip'],
+                'username' => $OutputData['UserName'],
+                'password' => $OutputData['Password'],
+                'userId' => $OutputData['userId'],
+                'recordId' => $OutputData['RecordId'],
             );
             $i++;
         }

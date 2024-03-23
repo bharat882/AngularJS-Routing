@@ -9,7 +9,7 @@ class API{
         $password = $data['password'];
 
         $db = new Connect;
-        $data = $db -> prepare ('SELECT userName, user_type , credentials.recordId FROM customer INNER JOIN credentials ON credentials.userId = customer.userId where UserName = :username AND Password = :password;');
+        $data = $db -> prepare ('SELECT credentials.UserName, user_type , credentials.recordId FROM customer INNER JOIN credentials ON credentials.userId = customer.userId where UserName = :username AND Password = :password;');
         $data->bindParam('username',$username,PDO::PARAM_STR);
         $data->bindParam('password',$password,PDO::PARAM_STR);
         $data->execute();

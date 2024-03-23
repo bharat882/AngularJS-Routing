@@ -148,7 +148,44 @@
                 });
             };
 
+            $scope.toggle = function () {
+              console.log("toggle function");
+              togglebtn = document.getElementById("togglebtn");
+              console.log(togglebtn.innerHTML);
+              state = togglebtn.innerHTML;
+              directoryTelField = document.getElementById("directoryTelField");
+              directoryNameField =
+                document.getElementById("directoryNameField");
+              anchor = document.getElementById("anchor");
+              if (state.includes("Edit")) {
+                directoryNameField.removeAttribute("readonly", "readonly");
+                directoryTelField.removeAttribute("readonly", "readonly");
+                anchor.removeAttribute("href");
+
+                togglebtn.innerHTML = "Save";
+              } else {
+                directoryNameField.setAttribute("readonly", "readonly");
+                directoryTelField.setAttribute("readonly", "readonly");
+                togglebtn.innerHTML = "Edit";
+
+                console.log(directoryNameField.value);
+                console.log(directoryTelField.value);
+
+                $http.put("");
+              }
+            };
             $scope.edit = function () {
+              console.log("edit button clicked");
+
+              toggleBtn = document.getElementById("toggleBtn");
+              console.log($scope.ng - click);
+
+              //  nameFieldVisibility = directoryNameField.getAttribute("readonly");
+              console.log(directoryTelField.getAttribute("readonly"));
+              console.log(directoryNameField.getAttribute("readonly"));
+
+              console.log(directoryTelField.getAttribute("readonly"));
+              console.log(directoryNameField.getAttribute("readonly"));
               //
             };
           },
@@ -181,6 +218,8 @@
               var username = $scope.username;
               var password = $scope.password;
 
+              console.log($scope.password);
+
               var data = {
                 username: username,
                 password: password,
@@ -193,15 +232,16 @@
                 )
                 .then(function (response) {
                   // TO DO: FIX THIS
-                  console.log(response.data);
+                  console.log(response);
                   var username = response.data.userName;
                   var user_type = response.data.user_type;
                   var recordId = response.data.recordId + "";
 
                   //  console.log(typeof recordId);
-                  if (user_type == "Admin") {
+                  if (user_type == "admin") {
                     $location.path("/homepage");
                   } else {
+                    recordId = recordId - 1;
                     var path = "/view/" + recordId;
                     $location.path(path);
                   }
