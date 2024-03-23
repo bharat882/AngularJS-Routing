@@ -1,3 +1,13 @@
+<script>
+  function toggle() {
+    console.log("edit button clicked");
+    directoryNameField = document.getElementById("directoryNameField");
+    directoryTelField = document.getElementById("directoryTelField");
+
+    directoryTelField.readOnly = true;
+    directoryNameField.readOnly = true;
+  }
+</script>
 <div class="directory-div">
   <nav class="navbar navbar-inverse nav-bar">
     <div class="container-fluid">
@@ -29,10 +39,25 @@
       <tr ng-repeat="person in people">
         <td>
           <a href="/FrontEnd/route/#/view/{{$index}}"
-            >{{person.fname}} {{person.lname}}</a
+            ><input type=”text” value="{{person.fname}} {{person.lname}}" [readonly]="false" id = "directoryNameField"/>
+            
+            </a
           >
         </td>
-        <td>{{person.tel}}</td>
+        <td>
+          <input type=”text” value="{{person.tel}}" [readonly]="false" id=" directoryTelField" /></td>
+        <td>
+          <button type="button" class="btn btn-primary" id="editbtn" onclick="toggle()"">
+            Edit
+          </button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            ng-click="delete({{$index}})"
+          >
+            Delete
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>

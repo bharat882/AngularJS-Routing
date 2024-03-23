@@ -122,15 +122,35 @@
         .controller("directoryController", [
           "$scope",
           "$http",
-          function ($scope, $http) {
+          "$route",
+          function ($scope, $http, $route) {
             $http
               .get(
                 "http://localhost/php-angular-mysql-project/BackEnd/index.php"
               )
-              .success(function (data) {
-                $scope.people = data;
-                console.log(data);
+              .then(function (response) {
+                $scope.people = response.data;
+                console.log(response.data);
               });
+
+            $scope.delete = function (userId) {
+              userId = userId + 1;
+              console.log(userId);
+              $http
+                .delete(
+                  "http://localhost/php-angular-mysql-project/BackEnd/Delete.php?userId=" +
+                    userId
+                )
+                .then(function (response) {
+                  console.log(response);
+
+                  $route.reload();
+                });
+            };
+
+            $scope.edit = function () {
+              //
+            };
           },
         ])
 
@@ -157,10 +177,7 @@
           "$location",
 
           function ($http, $scope, $location) {
-            console.log("here1");
-
             $scope.login = function login() {
-              console.log("here");
               var username = $scope.username;
               var password = $scope.password;
 
@@ -177,12 +194,16 @@
                 .then(function (response) {
                   // TO DO: FIX THIS
                   console.log(response.data);
+                  var username = response.data.userName;
+                  var user_type = response.data.user_type;
+                  var recordId = response.data.recordId + "";
 
-                  if (response.data === "USER AUTHENTICATION SUCCESSFUL") {
+                  //  console.log(typeof recordId);
+                  if (user_type == "Admin") {
                     $location.path("/homepage");
                   } else {
-                    // TO DO THROW ERROR
-                    $location.path("/homepage");
+                    var path = "/view/" + recordId;
+                    $location.path(path);
                   }
                 });
             };
